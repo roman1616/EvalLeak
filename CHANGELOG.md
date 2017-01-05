@@ -7,3 +7,6 @@ All notable changes to this project are recorded here.
 Initial release.
 
 - Split manifest parser with loud failure on malformed input (records.py).
+- Normalisation with individually switchable whitespace, case, and punctuation
+  steps (normalise.py).
+- Character k-shingling and a hashlib MinHash sketch for a Jaccard estimate
