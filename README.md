@@ -46,3 +46,22 @@ total contaminated records: 8
 - [A worked walkthrough](#a-worked-walkthrough)
 - [Reading the report](#reading-the-report)
 - [Report format, field by field](#report-format-field-by-field)
+- [Exit codes](#exit-codes)
+- [Normalisation, and why each step is switchable](#normalisation-and-why-each-step-is-switchable)
+- [Design decisions](#design-decisions)
+- [The split overlap graphic](#the-split-overlap-graphic)
+- [Repository layout](#repository-layout)
+- [Glossary](#glossary)
+- [Integration notes](#integration-notes)
+- [Verification](#verification)
+- [Limitations](#limitations)
+- [Roadmap](#roadmap)
+- [License](#license)
+
+## The problem
+
+You train a model, you evaluate it on a held-out split, and the numbers look
+good. Then someone asks whether any evaluation item was already in the training
+data. If it was, the score measures memorisation, not generalisation, and the
+result is worthless for deciding whether to ship.
+
