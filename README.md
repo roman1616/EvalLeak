@@ -84,3 +84,22 @@ Given two or more split manifests, EvalLeak runs four checks:
 - Exact duplicates across splits, by normalised digest.
 - Near duplicates across splits, by character shingling with a MinHash Jaccard
   estimate.
+- Containment across splits, where a shorter evaluation item is a substring of a
+  longer training record (prefix, suffix, or interior).
+- Intra-split duplicates, exact duplicates inside one split, which inflate the
+  apparent dataset size without adding information.
+
+Every check is offline, deterministic, and built on the Python standard library
+only. There is no network access anywhere in the code.
+
+## Install and run
+
+EvalLeak targets Python 3.11 and has no third-party runtime dependencies. Run it
+straight from a checkout with the package on the path:
+
+```
+$ PYTHONPATH=src python -m EvalLeak version
+EvalLeak 0.1.0
+```
+
+Or install it and use the console script:
