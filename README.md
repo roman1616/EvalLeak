@@ -103,3 +103,21 @@ EvalLeak 0.1.0
 ```
 
 Or install it and use the console script:
+
+```
+pip install .
+EvalLeak report split_a.manifest split_b.manifest
+```
+
+A manifest is a small line-oriented text file. It declares one split name, then
+lists records, each with an id and a single line of text:
+
+```
+split: train
+
+id: t1
+text: The mitochondria is the powerhouse of the cell and supplies chemical energy.
+
+id: t2
+text: Photosynthesis converts light energy into chemical energy stored in glucose.
+```
