@@ -140,3 +140,22 @@ exact cross-split duplicates:
 ```
 
 ```
+$ PYTHONPATH=src python -m EvalLeak near samples/train.manifest samples/validation.manifest samples/test.manifest
+near cross-split duplicates (jaccard >= 0.60, k=5, num_perm=128):
+  train/t1 ~ validation/v1  jaccard~=0.883
+```
+
+Both subcommands exit 1 when they find anything, so a bare `exact` check is a
+usable gate on its own.
+
+## A worked walkthrough
+
+Follow `validation/v1` through the pipeline. Its raw text is:
+
+```
+THE MITOCHONDRIA IS THE POWERHOUSE OF THE CELL, AND IT SUPPLIES CHEMICAL ENERGY!!!
+```
+
+The training record `train/t1` is:
+
+```
