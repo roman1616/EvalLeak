@@ -159,3 +159,22 @@ THE MITOCHONDRIA IS THE POWERHOUSE OF THE CELL, AND IT SUPPLIES CHEMICAL ENERGY!
 The training record `train/t1` is:
 
 ```
+The mitochondria is the powerhouse of the cell and supplies chemical energy.
+```
+
+First, normalisation runs with all three steps on. Whitespace is collapsed, case
+is folded to lower, and ASCII punctuation is dropped and re-collapsed. Both
+records become close but not identical, because `v1` still carries the inserted
+word "it". So the sha256 digests differ, and the exact check does not fire.
+
+Next, each normalised text is cut into character 5-shingles, the shingle sets are
+reduced to 128-value MinHash signatures, and the signatures are compared. The
+fraction of matching minima estimates the Jaccard similarity of the two shingle
+sets, here about 0.883, which clears the 0.60 threshold. So `v1` is reported as a
+near duplicate of `t1`.
+
+Finally the pair contributes to the directional rates. Because `v1` is one of the
+three validation records touched by a train record, the `train -> validation`
+rate is 1 of 3, and because `t1` is one of six train records touched by a
+validation record, the `validation -> train` rate is 1 of 6.
+
