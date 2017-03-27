@@ -178,3 +178,22 @@ three validation records touched by a train record, the `train -> validation`
 rate is 1 of 3, and because `t1` is one of six train records touched by a
 validation record, the `validation -> train` rate is 1 of 6.
 
+## Reading the report
+
+Each finding class maps to a different action:
+
+| Finding          | What it means                                              | Suggested action                                     |
+|------------------|------------------------------------------------------------|------------------------------------------------------|
+| exact            | Same text on both sides after normalisation                | Remove the record from the evaluation split          |
+| near             | High Jaccard estimate, likely a light edit of the same text| Inspect the pair, then remove or keep with a note    |
+| containment      | Evaluation item sits inside a longer training record       | Remove the item, or exclude the training passage     |
+| intra-split      | Duplicate inside one split                                 | Deduplicate before reporting split sizes             |
+
+The directional rates tell you where the damage lands. A high `train -> test`
+rate is the worst case, because it inflates the headline score. A high
+`test -> train` rate for the same pair is the same records viewed from the other
+side, and the smaller denominator, the test split, is usually the number to act
+on.
+
+## Report format, field by field
+
