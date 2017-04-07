@@ -216,3 +216,22 @@ computed internally; the prefix is enough to correlate two lines by eye.
 
 ## Exit codes
 
+| Code | Meaning                                                         |
+|------|-----------------------------------------------------------------|
+| 0    | Clean, no findings for the subcommand that ran                  |
+| 1    | Findings present                                                |
+| 2    | Usage error, including a missing or malformed manifest          |
+
+argparse itself exits with 2 on an unknown flag or a missing argument, which
+matches the usage-error code.
+
+## Normalisation, and why each step is switchable
+
+Normalisation decides which records count as "the same", and it is the single
+biggest lever on the result. More aggressive normalisation collapses more surface
+differences and reports more contamination. Each step is a separate flag so the
+aggressiveness is visible and so you can see which transformation caused a match:
+
+| Step        | Flag to disable    | Effect                                             |
+|-------------|--------------------|----------------------------------------------------|
+| whitespace  | `--no-whitespace`  | Collapse every run of whitespace to one space      |
