@@ -235,3 +235,22 @@ aggressiveness is visible and so you can see which transformation caused a match
 | Step        | Flag to disable    | Effect                                             |
 |-------------|--------------------|----------------------------------------------------|
 | whitespace  | `--no-whitespace`  | Collapse every run of whitespace to one space      |
+| case        | `--no-case`        | Lowercase the text                                 |
+| punctuation | `--no-punctuation` | Drop ASCII punctuation, then re-collapse whitespace|
+
+The default enables all three, the most aggressive setting. For contamination
+detection that is the safer default: a borderline match a human can dismiss is
+better than a real leak that is never seen. Turn steps off when you want to know
+whether a match survives without that transformation. If `train/t1` and
+`validation/v1` stop matching once punctuation removal is off, you have learned
+that punctuation is doing the work, which is a weaker signal than a match that
+survives every step.
+
+## Design decisions
+
+Line-oriented text manifests over JSON. The fixtures and the output both need to
+diff cleanly, and a record body full of punctuation is awkward to keep readable
+inside escaped JSON strings. The rejected alternative was JSON Lines, which is
+more standard but harder to author and read by hand, and the whole point of the
+sample fixtures is that a person can see the planted cases at a glance.
+
