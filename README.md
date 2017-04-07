@@ -292,3 +292,21 @@ Every number in the graphic comes from the `report` run shown at the top of this
 file: the record counts per split, the count of cross-split findings for each
 split pair, and the total of eight contaminated records. The bars use the slate
 ink, and the one accent, amber, is reserved for the contamination edges, the
+thing to look at first.
+
+## Repository layout
+
+```
+EvalLeak/
+  README.md                     this file
+  LICENSE                       MIT, holder "the EvalLeak authors", 2026
+  CHANGELOG.md                  release notes
+  .gitignore                    ignore build and cache artefacts
+  pyproject.toml                setuptools, src layout, console script
+  src/EvalLeak/
+    __init__.py                 package version
+    __main__.py                 enables python -m EvalLeak
+    cli.py                      argparse subcommands: exact, near, report, version
+    records.py                  split manifest parsing
+    normalise.py                switchable whitespace, case, punctuation steps
+    shingle.py                  character k-shingles and a hashlib MinHash sketch
