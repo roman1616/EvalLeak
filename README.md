@@ -254,3 +254,22 @@ inside escaped JSON strings. The rejected alternative was JSON Lines, which is
 more standard but harder to author and read by hand, and the whole point of the
 sample fixtures is that a person can see the planted cases at a glance.
 
+MinHash over exact Jaccard for the near check. Exact Jaccard needs the full
+shingle set for every record and a set intersection for every pair, which is
+quadratic in both records and record length. A MinHash signature is a fixed size
+regardless of record length, and the comparison is a cheap count of matching
+minima. The cost is an estimate with error bounds rather than an exact number.
+The rejected alternative, exact Jaccard, is what the test suite uses to bound the
+estimate error, so the trade is measured, not assumed.
+
+hashlib for the MinHash permutations. A real MinHash usually draws random hash
+coefficients. That would make the output depend on a seed, which breaks the
+byte-identical determinism the project requires. Instead each of the 128
+"permutations" is sha256 salted with its index, so the signature is a pure
+function of the input. The rejected alternative, seeded randomness, would have
+needed the seed recorded in the output and would still surprise anyone diffing
+two runs.
+
+Containment as normalised substring search, separate from the near check. A short
+item inside a long document has a low whole-record Jaccard, because the long
+document contributes many shingles the item does not share, so the near check
