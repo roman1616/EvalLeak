@@ -197,3 +197,22 @@ on.
 
 ## Report format, field by field
 
+The `report` output is line oriented so it diffs cleanly in git. The fields are:
+
+| Section                  | Line shape                                             | Meaning                                                        |
+|--------------------------|--------------------------------------------------------|----------------------------------------------------------------|
+| header                   | `EvalLeak contamination report`                        | Fixed banner                                                   |
+| normalisation            | `normalisation: whitespace,case,punctuation`           | The active normalisation steps for this run                    |
+| split record counts      | `<split>: <n>`                                         | Records parsed from each manifest                              |
+| exact cross-split        | `<a>/<id> == <b>/<id>  digest=<12 hex>`                | Two records with the same normalised digest                    |
+| near cross-split         | `<a>/<id> ~ <b>/<id>  jaccard~=<0.000>`                | Estimated Jaccard at or above the threshold                    |
+| containment              | `<a>/<id> inside <b>/<id>  position=<pos>`             | Short record contained in long record, with position          |
+| intra-split              | `<split>/<id> == <split>/<id>  digest=<12 hex>`        | Duplicate inside one split                                     |
+| contamination rate       | `<source> -> <target>: <c>/<t> = <pct>`                | Directional rate, contaminated over target size               |
+| total                    | `total contaminated records: <n>`                      | Distinct records involved in any finding, across all splits    |
+
+The digest is truncated to 12 hex characters for readability. The full sha256 is
+computed internally; the prefix is enough to correlate two lines by eye.
+
+## Exit codes
+
