@@ -310,3 +310,22 @@ EvalLeak/
     records.py                  split manifest parsing
     normalise.py                switchable whitespace, case, punctuation steps
     shingle.py                  character k-shingles and a hashlib MinHash sketch
+    containment.py              prefix, suffix, interior substring containment
+    overlap.py                  pairwise comparison and directional rates
+    report.py                   line-oriented rendering
+  tests/
+    test_evalleak.py            unittest suite, 35 tests
+  samples/
+    README.md                   how each fixture was constructed
+    train.manifest              six records, includes one intra-split duplicate
+    validation.manifest         three records, includes one near duplicate
+    test.manifest               three records, includes exact and containment cases
+  docs/assets/
+    logo.svg                    wordmark, colour split at the eval|leak boundary
+    split-overlap.svg           record counts and contamination, real numbers
+```
+
+## Glossary
+
+- Split: a named partition of a dataset, such as train, validation, or test.
+- Manifest: the text file that declares one split and lists its records.
