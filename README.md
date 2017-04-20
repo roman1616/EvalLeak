@@ -367,3 +367,22 @@ The four project checks were run in this session:
 ```
 $ PYTHONPATH=src python -m unittest discover -s tests -v
 ...
+Ran 35 tests in 0.862s
+
+OK
+```
+
+The 35 tests cover manifest parsing and its error cases, each normalisation step
+in isolation, shingle construction on short and long text, the MinHash estimate
+against the exact Jaccard within an error margin, containment position
+classification, the full overlap over the samples, deterministic output, and the
+CLI exit codes.
+
+The CLI was run end to end against `samples/` and its real output is pasted at the
+top of this file and in the detector sections. Both SVG assets under
+`docs/assets/` parse as XML. A search across the whole project for the em dash
+character returns nothing.
+
+## Limitations
+
+Read these before trusting a clean report.
