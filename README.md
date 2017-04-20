@@ -348,3 +348,22 @@ EvalLeak/
 ## Integration notes
 
 EvalLeak is a gate. In CI, run it over your split manifests and let the exit code
+fail the job:
+
+```
+PYTHONPATH=src python -m EvalLeak report train.manifest val.manifest test.manifest
+```
+
+A zero exit means clean, a one means findings, and a two means the manifests
+could not be parsed. Because the output is deterministic and line oriented, you
+can commit a known-good report and diff future runs against it in git to see
+exactly which records changed. To compare two runs, redirect each to a file and
+diff them; new or removed finding lines are the signal.
+
+## Verification
+
+The four project checks were run in this session:
+
+```
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+...
