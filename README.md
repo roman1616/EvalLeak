@@ -405,3 +405,22 @@ Read these before trusting a clean report.
   a corpus of millions of records.
 
 ## Roadmap
+
+No dates. In rough priority order:
+
+- A blocking mode that shards records to reduce the quadratic pair count.
+- A JSON output mode alongside the line-oriented text, for machine consumers.
+- Token shingling as an option next to character shingling.
+- A diff subcommand that compares two report files directly.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+<p align="right">
+  <img src="docs/assets/logo.svg" width="200"
+       alt="EvalLeak wordmark with eval in slate and leak in amber, split at the
+       morpheme boundary above a baseline rule">
+</p>
+
+## Installation
