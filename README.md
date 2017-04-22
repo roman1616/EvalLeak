@@ -386,3 +386,22 @@ character returns nothing.
 ## Limitations
 
 Read these before trusting a clean report.
+
+- A MinHash Jaccard is an estimate, not the true value. With 128 permutations the
+  standard error is roughly one over the square root of 128, about 0.09, so a
+  near duplicate can sit just above or just below the threshold by chance. Raise
+  `--num-perm` to tighten the estimate at a linear cost in time.
+- Normalisation choices change the answer. A match reported with all steps on may
+  vanish with punctuation removal off. The report prints the active steps so the
+  setting is never hidden, but there is no single correct setting.
+- Semantic duplication is not detected at all. Two records that say the same thing
+  in different words share no shingles and produce no finding. EvalLeak measures
+  textual overlap, not meaning. A paraphrase leak is invisible to it.
+- Containment uses a length guard, so a genuinely short evaluation item can slip
+  under `min_length` and go unreported. Lower the guard only if you accept more
+  coincidental matches.
+- The comparison is pairwise and quadratic in the number of records per split
+  pair. It is built for split manifests of manageable size, not for deduplicating
+  a corpus of millions of records.
+
+## Roadmap
