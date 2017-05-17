@@ -10,3 +10,6 @@ readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "EvalLeak contributors" }]
+keywords = ["evaluation", "contamination", "deduplication", "minhash", "datasets"]
+classifiers = [
+    "Programming Language :: Python :: 3.11",
