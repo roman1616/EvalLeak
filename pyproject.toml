@@ -16,3 +16,6 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Topic :: Scientific/Engineering",
 ]
+
+[project.scripts]
+evalleak = "evalleak.cli:main"
