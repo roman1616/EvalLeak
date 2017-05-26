@@ -45,3 +45,11 @@ def _hash_shingle(shingle: str, perm: int) -> int:
 
 
 @dataclass(frozen=True)
+class MinHash:
+    """A fixed-size MinHash signature over a shingle set."""
+
+    signature: tuple[int, ...]
+    num_perm: int
+
+    @classmethod
+    def from_shingles(cls, shingle_set: set[str], num_perm: int = 128) -> "MinHash":
