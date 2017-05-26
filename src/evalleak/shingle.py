@@ -30,3 +30,10 @@ def shingles(text: str, k: int = 5) -> set[str]:
     If the text is shorter than k, the whole text is returned as one shingle so
     short records still compare sensibly.
     """
+    if k <= 0:
+        raise ValueError("k must be positive")
+    if len(text) <= k:
+        return {text} if text else set()
+    return {text[i : i + k] for i in range(len(text) - k + 1)}
+
+
