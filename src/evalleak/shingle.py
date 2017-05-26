@@ -37,3 +37,11 @@ def shingles(text: str, k: int = 5) -> set[str]:
     return {text[i : i + k] for i in range(len(text) - k + 1)}
 
 
+def _hash_shingle(shingle: str, perm: int) -> int:
+    """Hash one shingle under permutation index perm to a 64-bit integer."""
+    payload = f"{perm}\x00{shingle}".encode("utf-8")
+    digest = hashlib.sha256(payload).digest()
+    return int.from_bytes(digest[:8], "big")
+
+
+@dataclass(frozen=True)
