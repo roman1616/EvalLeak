@@ -53,3 +53,10 @@ class MinHash:
 
     @classmethod
     def from_shingles(cls, shingle_set: set[str], num_perm: int = 128) -> "MinHash":
+        """Build a signature from a shingle set.
+
+        An empty set yields the all-maximum signature, which estimates Jaccard
+        zero against anything non-empty and one against another empty set.
+        """
+        if num_perm <= 0:
+            raise ValueError("num_perm must be positive")
