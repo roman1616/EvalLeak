@@ -68,3 +68,10 @@ class MinHash:
                     signature[perm] = h
         return cls(signature=tuple(signature), num_perm=num_perm)
 
+    def jaccard(self, other: "MinHash") -> float:
+        """Estimate Jaccard similarity against another signature.
+
+        Both signatures must use the same num_perm.
+        """
+        if self.num_perm != other.num_perm:
+            raise ValueError("signatures use different num_perm")
