@@ -14,3 +14,10 @@ Steps, applied in this fixed order when enabled:
    whitespace so removed punctuation does not leave double spaces.
 
 The order matters. Case folding before punctuation removal does not change the
+result here, but whitespace collapse runs first so later steps see a single
+canonical spacing.
+"""
+
+from __future__ import annotations
+
+import hashlib
