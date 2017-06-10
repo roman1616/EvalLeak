@@ -21,3 +21,10 @@ canonical spacing.
 from __future__ import annotations
 
 import hashlib
+import string
+from dataclasses import dataclass
+
+_PUNCTUATION = set(string.punctuation)
+
+
+@dataclass(frozen=True)
