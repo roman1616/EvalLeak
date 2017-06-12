@@ -36,3 +36,10 @@ class NormaliseConfig:
     borderline match for a human to dismiss than to miss a real leak.
     """
 
+    whitespace: bool = True
+    case: bool = True
+    punctuation: bool = True
+
+    def describe(self) -> str:
+        """Return a stable one-line description of the active steps."""
+        parts = [
