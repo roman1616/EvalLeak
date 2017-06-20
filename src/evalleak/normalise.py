@@ -43,3 +43,10 @@ class NormaliseConfig:
     def describe(self) -> str:
         """Return a stable one-line description of the active steps."""
         parts = [
+            ("whitespace", self.whitespace),
+            ("case", self.case),
+            ("punctuation", self.punctuation),
+        ]
+        active = [name for name, on in parts if on]
+        return ",".join(active) if active else "none"
+
