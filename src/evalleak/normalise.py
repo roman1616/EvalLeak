@@ -50,3 +50,10 @@ class NormaliseConfig:
         active = [name for name, on in parts if on]
         return ",".join(active) if active else "none"
 
+
+def _collapse_whitespace(text: str) -> str:
+    return " ".join(text.split())
+
+
+def _drop_punctuation(text: str) -> str:
+    out = []
