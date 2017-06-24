@@ -65,3 +65,10 @@ def _drop_punctuation(text: str) -> str:
     return "".join(out)
 
 
+def normalise(text: str, config: NormaliseConfig = NormaliseConfig()) -> str:
+    """Apply the enabled normalisation steps and return the result."""
+    result = text
+    if config.whitespace:
+        result = _collapse_whitespace(result)
+    if config.case:
+        result = result.lower()
