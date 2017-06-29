@@ -11,3 +11,13 @@ Format:
     split: <name>
 
     id: <record id>
+    text: <one line of text>
+
+    id: <record id>
+    text: <one line of text>
+
+Every record has a unique id within its split. The split name is declared once
+at the top with the `split:` key. Blank lines separate records. A record needs
+both an `id:` and a `text:` line; a record missing either raises ManifestError
+so a malformed fixture fails loudly instead of silently dropping data.
+"""
