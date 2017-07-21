@@ -31,3 +31,13 @@ class ManifestError(ValueError):
     """Raised when a manifest cannot be parsed into a clean set of records."""
 
 
+@dataclass(frozen=True)
+class Record:
+    """One text record inside a split."""
+
+    split: str
+    record_id: str
+    text: str
+
+
+@dataclass(frozen=True)
