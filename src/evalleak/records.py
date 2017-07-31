@@ -51,3 +51,13 @@ class Manifest:
         return len(self.records)
 
 
+def parse_manifest(source: str, *, filename: str = "<string>") -> Manifest:
+    """Parse manifest text into a Manifest.
+
+    Raises ManifestError on a missing split declaration, a duplicate id, or a
+    record that is missing its id or text.
+    """
+    split_name: str | None = None
+    records: list[Record] = []
+    seen_ids: set[str] = set()
+
