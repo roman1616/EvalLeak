@@ -41,3 +41,13 @@ class Record:
 
 
 @dataclass(frozen=True)
+class Manifest:
+    """A named split and its records, in file order."""
+
+    split: str
+    records: tuple[Record, ...]
+
+    def __len__(self) -> int:
+        return len(self.records)
+
+
