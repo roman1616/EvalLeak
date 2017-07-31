@@ -61,3 +61,13 @@ def parse_manifest(source: str, *, filename: str = "<string>") -> Manifest:
     records: list[Record] = []
     seen_ids: set[str] = set()
 
+    current_id: str | None = None
+    current_text: str | None = None
+
+    def flush(line_no: int) -> None:
+        nonlocal current_id, current_text
+        if current_id is None and current_text is None:
+            return
+        if current_id is None:
+            raise ManifestError(
+                f"{filename}:{line_no}: record is missing an id: line"
