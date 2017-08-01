@@ -81,3 +81,13 @@ def parse_manifest(source: str, *, filename: str = "<string>") -> Manifest:
                 f"{filename}:{line_no}: record appears before a split: declaration"
             )
         if current_id in seen_ids:
+            raise ManifestError(
+                f"{filename}:{line_no}: duplicate record id {current_id!r}"
+            )
+        seen_ids.add(current_id)
+        records.append(Record(split=split_name, record_id=current_id, text=current_text))
+        current_id = None
+        current_text = None
+
+    lines = source.splitlines()
+    for index, raw in enumerate(lines, start=1):
