@@ -101,3 +101,13 @@ def parse_manifest(source: str, *, filename: str = "<string>") -> Manifest:
         if ":" not in line:
             raise ManifestError(f"{filename}:{index}: line has no key: {line!r}")
         key, _, value = line.partition(":")
+        key = key.strip().lower()
+        value = value.strip()
+        if key == "split":
+            if split_name is not None:
+                raise ManifestError(
+                    f"{filename}:{index}: split declared twice"
+                )
+            if value == "":
+                raise ManifestError(f"{filename}:{index}: split name is empty")
+            split_name = value
