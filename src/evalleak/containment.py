@@ -10,3 +10,9 @@ matches.
 This module detects that. For an ordered pair (short, long) it reports
 containment when the normalised short text is a substring of the normalised
 long text. It classifies the position as prefix, suffix, or interior so a
+reader can judge how the item sits inside the record.
+
+Very short items are noise: a two-word evaluation record is contained in almost
+any document by chance. min_length guards against that, measured on the
+normalised short text.
+"""
