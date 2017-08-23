@@ -29,3 +29,9 @@ class Containment:
     """A containment finding: short_id sits inside long_id."""
 
     short_id: str
+    long_id: str
+    position: str  # "prefix", "suffix", or "interior"
+
+
+def _position(haystack: str, needle: str) -> str:
+    if haystack.startswith(needle):
