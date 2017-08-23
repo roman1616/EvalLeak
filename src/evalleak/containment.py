@@ -41,3 +41,9 @@ def _position(haystack: str, needle: str) -> str:
     return "interior"
 
 
+def find_containment(
+    short_text: str,
+    long_text: str,
+    *,
+    config: NormaliseConfig = NormaliseConfig(),
+    min_length: int = 16,
