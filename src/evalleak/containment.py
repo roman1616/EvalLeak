@@ -16,3 +16,10 @@ Very short items are noise: a two-word evaluation record is contained in almost
 any document by chance. min_length guards against that, measured on the
 normalised short text.
 """
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from .normalise import NormaliseConfig, normalise
+
