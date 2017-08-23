@@ -47,3 +47,9 @@ def find_containment(
     *,
     config: NormaliseConfig = NormaliseConfig(),
     min_length: int = 16,
+) -> str | None:
+    """Return the containment position if short is inside long, else None.
+
+    Both texts are normalised with the same config first. A short text whose
+    normalised form is below min_length characters is ignored to avoid trivial
+    coincidental matches.
