@@ -30,3 +30,17 @@ from .records import Manifest, Record
 from .shingle import MinHash, shingles
 
 
+@dataclass(frozen=True)
+class ExactMatch:
+    split_a: str
+    id_a: str
+    split_b: str
+    id_b: str
+    digest: str
+
+
+@dataclass(frozen=True)
+class NearMatch:
+    split_a: str
+    id_a: str
+    split_b: str
