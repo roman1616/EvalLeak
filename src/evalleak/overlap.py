@@ -1,0 +1,32 @@
+"""Pairwise split comparison and contamination rates.
+
+This module runs the three detectors across split pairs and inside single
+splits, then aggregates the findings into rates. An aggregate rate alone is not
+actionable, so every finding names the specific record ids involved.
+
+Definitions used here:
+
+- exact: two records in different splits share a normalised digest.
+- near: two records in different splits have an estimated Jaccard at or above a
+  threshold, and are not already an exact match.
+- containment: the shorter record's normalised text is a substring of the
+  longer record's normalised text, across splits.
+- intra: two records inside the same split are exact duplicates by digest.
+
+The contamination rate for an ordered split pair (A, B) is the number of
+distinct records in B that are contaminated by any record in A, divided by the
+number of records in B. Reporting it per direction matters: leaking a training
+record into a small test split is far worse than the reverse, and a single
+symmetric number would hide that.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+from .containment import Containment, find_containment
+from .normalise import NormaliseConfig, digest
+from .records import Manifest, Record
+from .shingle import MinHash, shingles
+
+
