@@ -71,3 +71,17 @@ class PairRate:
 
     source: str
     target: str
+    contaminated: int
+    total: int
+
+    @property
+    def rate(self) -> float:
+        if self.total == 0:
+            return 0.0
+        return self.contaminated / self.total
+
+
+@dataclass
+class OverlapReport:
+    config: NormaliseConfig
+    k: int
