@@ -57,3 +57,17 @@ class ContainmentMatch:
     position: str
 
 
+@dataclass(frozen=True)
+class IntraDuplicate:
+    split: str
+    id_a: str
+    id_b: str
+    digest: str
+
+
+@dataclass(frozen=True)
+class PairRate:
+    """Contamination rate for records of `target` explained by `source`."""
+
+    source: str
+    target: str
