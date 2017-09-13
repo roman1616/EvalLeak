@@ -99,3 +99,17 @@ class OverlapReport:
         """Map each split to the set of its record ids involved in any finding."""
         out: dict[str, set[str]] = {split: set() for split in self.counts}
         for m in self.exact:
+            out.setdefault(m.split_a, set()).add(m.id_a)
+            out.setdefault(m.split_b, set()).add(m.id_b)
+        for m in self.near:
+            out.setdefault(m.split_a, set()).add(m.id_a)
+            out.setdefault(m.split_b, set()).add(m.id_b)
+        for m in self.containment:
+            out.setdefault(m.split_short, set()).add(m.id_short)
+            out.setdefault(m.split_long, set()).add(m.id_long)
+        for m in self.intra:
+            out.setdefault(m.split, set()).add(m.id_a)
+            out.setdefault(m.split, set()).add(m.id_b)
+        return out
+
+    def total_contaminated(self) -> int:
