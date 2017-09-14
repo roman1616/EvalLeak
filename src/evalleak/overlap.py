@@ -127,3 +127,17 @@ def _digests(manifest: Manifest, config: NormaliseConfig) -> dict[str, str]:
 def _minhashes(
     manifest: Manifest, config: NormaliseConfig, k: int, num_perm: int
 ) -> dict[str, MinHash]:
+    from .normalise import normalise
+
+    out: dict[str, MinHash] = {}
+    for r in manifest.records:
+        norm = normalise(r.text, config)
+        out[r.record_id] = MinHash.from_shingles(shingles(norm, k), num_perm)
+    return out
+
+
+def compare(
+    manifests: list[Manifest],
+    *,
+    config: NormaliseConfig = NormaliseConfig(),
+    k: int = 5,
