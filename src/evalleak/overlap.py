@@ -155,3 +155,17 @@ def compare(
         k=k,
         num_perm=num_perm,
         near_threshold=near_threshold,
+        min_containment=min_containment,
+        counts={m.split: len(m) for m in manifests},
+    )
+
+    by_split = {m.split: m for m in manifests}
+    digests = {name: _digests(m, config) for name, m in by_split.items()}
+    minhashes = {
+        name: _minhashes(m, config, k, num_perm) for name, m in by_split.items()
+    }
+    texts = {
+        name: {r.record_id: r.text for r in m.records} for name, m in by_split.items()
+    }
+
+    split_names = sorted(by_split)
