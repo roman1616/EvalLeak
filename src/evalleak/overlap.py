@@ -183,3 +183,16 @@ def compare(
                             split=name,
                             id_a=records[i].record_id,
                             id_b=records[j].record_id,
+                            digest=digests[name][records[i].record_id],
+                        )
+                    )
+
+    # Cross-split comparisons over unordered pairs of splits.
+    for ai in range(len(split_names)):
+        for bi in range(ai + 1, len(split_names)):
+            name_a = split_names[ai]
+            name_b = split_names[bi]
+            recs_a = by_split[name_a].records
+            recs_b = by_split[name_b].records
+
+            exact_pairs: set[tuple[str, str]] = set()
