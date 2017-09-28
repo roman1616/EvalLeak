@@ -196,3 +196,17 @@ def compare(
             recs_b = by_split[name_b].records
 
             exact_pairs: set[tuple[str, str]] = set()
+            for ra in recs_a:
+                for rb in recs_b:
+                    da = digests[name_a][ra.record_id]
+                    db = digests[name_b][rb.record_id]
+                    if da == db:
+                        report.exact.append(
+                            ExactMatch(
+                                split_a=name_a,
+                                id_a=ra.record_id,
+                                split_b=name_b,
+                                id_b=rb.record_id,
+                                digest=da,
+                            )
+                        )
