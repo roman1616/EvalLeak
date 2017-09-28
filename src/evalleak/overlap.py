@@ -210,3 +210,17 @@ def compare(
                                 digest=da,
                             )
                         )
+                        exact_pairs.add((ra.record_id, rb.record_id))
+
+            for ra in recs_a:
+                for rb in recs_b:
+                    if (ra.record_id, rb.record_id) in exact_pairs:
+                        continue
+                    est = minhashes[name_a][ra.record_id].jaccard(
+                        minhashes[name_b][rb.record_id]
+                    )
+                    if est >= near_threshold:
+                        report.near.append(
+                            NearMatch(
+                                split_a=name_a,
+                                id_a=ra.record_id,
