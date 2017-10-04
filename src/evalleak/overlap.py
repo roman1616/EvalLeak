@@ -266,3 +266,17 @@ def compare(
                                 )
                             )
 
+    _sort_findings(report)
+    report.pair_rates = _compute_pair_rates(report, by_split, split_names)
+    return report
+
+
+def _sort_findings(report: OverlapReport) -> None:
+    report.exact.sort(key=lambda m: (m.split_a, m.id_a, m.split_b, m.id_b))
+    report.near.sort(key=lambda m: (m.split_a, m.id_a, m.split_b, m.id_b))
+    report.containment.sort(
+        key=lambda m: (m.split_short, m.id_short, m.split_long, m.id_long)
+    )
+    report.intra.sort(key=lambda m: (m.split, m.id_a, m.id_b))
+
+
