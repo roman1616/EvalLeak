@@ -238,3 +238,17 @@ def compare(
                     ta = texts[name_a][ra.record_id]
                     tb = texts[name_b][rb.record_id]
                     if len(ta) <= len(tb):
+                        pos = find_containment(
+                            ta, tb, config=config, min_length=min_containment
+                        )
+                        if pos is not None:
+                            report.containment.append(
+                                ContainmentMatch(
+                                    split_short=name_a,
+                                    id_short=ra.record_id,
+                                    split_long=name_b,
+                                    id_long=rb.record_id,
+                                    position=pos,
+                                )
+                            )
+                    else:
