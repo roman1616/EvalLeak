@@ -252,3 +252,17 @@ def compare(
                                 )
                             )
                     else:
+                        pos = find_containment(
+                            tb, ta, config=config, min_length=min_containment
+                        )
+                        if pos is not None:
+                            report.containment.append(
+                                ContainmentMatch(
+                                    split_short=name_b,
+                                    id_short=rb.record_id,
+                                    split_long=name_a,
+                                    id_long=ra.record_id,
+                                    position=pos,
+                                )
+                            )
+
