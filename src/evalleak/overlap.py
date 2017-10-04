@@ -224,3 +224,17 @@ def compare(
                             NearMatch(
                                 split_a=name_a,
                                 id_a=ra.record_id,
+                                split_b=name_b,
+                                id_b=rb.record_id,
+                                jaccard=est,
+                            )
+                        )
+
+            # Containment in both directions across the pair.
+            for ra in recs_a:
+                for rb in recs_b:
+                    if (ra.record_id, rb.record_id) in exact_pairs:
+                        continue
+                    ta = texts[name_a][ra.record_id]
+                    tb = texts[name_b][rb.record_id]
+                    if len(ta) <= len(tb):
