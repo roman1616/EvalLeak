@@ -20,3 +20,14 @@ def render_exact(report: OverlapReport) -> list[str]:
     if not report.exact:
         lines.append("  none")
         return lines
+    for m in report.exact:
+        lines.append(
+            f"  {m.split_a}/{m.id_a} == {m.split_b}/{m.id_b}  digest={m.digest[:12]}"
+        )
+    return lines
+
+
+def render_near(report: OverlapReport) -> list[str]:
+    lines = [
+        f"near cross-split duplicates (jaccard >= {report.near_threshold:.2f}, "
+        f"k={report.k}, num_perm={report.num_perm}):"
