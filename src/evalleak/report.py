@@ -31,3 +31,14 @@ def render_near(report: OverlapReport) -> list[str]:
     lines = [
         f"near cross-split duplicates (jaccard >= {report.near_threshold:.2f}, "
         f"k={report.k}, num_perm={report.num_perm}):"
+    ]
+    if not report.near:
+        lines.append("  none")
+        return lines
+    for m in report.near:
+        lines.append(
+            f"  {m.split_a}/{m.id_a} ~ {m.split_b}/{m.id_b}  jaccard~={m.jaccard:.3f}"
+        )
+    return lines
+
+
