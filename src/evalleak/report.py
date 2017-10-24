@@ -9,3 +9,14 @@ from __future__ import annotations
 
 from .overlap import OverlapReport
 
+
+def _rate_pct(value: float) -> str:
+    """Format a rate as a fixed two-decimal percentage."""
+    return f"{value * 100:.2f}%"
+
+
+def render_exact(report: OverlapReport) -> list[str]:
+    lines = ["exact cross-split duplicates:"]
+    if not report.exact:
+        lines.append("  none")
+        return lines
