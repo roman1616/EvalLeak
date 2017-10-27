@@ -76,3 +76,14 @@ def render_rates(report: OverlapReport) -> list[str]:
         lines.append(
             f"  {r.source} -> {r.target}: {r.contaminated}/{r.total} "
             f"= {_rate_pct(r.rate)}"
+        )
+    return lines
+
+
+def render_counts(report: OverlapReport) -> list[str]:
+    lines = ["split record counts:"]
+    for split in sorted(report.counts):
+        lines.append(f"  {split}: {report.counts[split]}")
+    return lines
+
+
