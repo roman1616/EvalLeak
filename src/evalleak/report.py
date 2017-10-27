@@ -65,3 +65,14 @@ def render_intra(report: OverlapReport) -> list[str]:
             f"  {m.split}/{m.id_a} == {m.split}/{m.id_b}  digest={m.digest[:12]}"
         )
     return lines
+
+
+def render_rates(report: OverlapReport) -> list[str]:
+    lines = ["contamination rate per split pair (source -> target):"]
+    if not report.pair_rates:
+        lines.append("  none")
+        return lines
+    for r in report.pair_rates:
+        lines.append(
+            f"  {r.source} -> {r.target}: {r.contaminated}/{r.total} "
+            f"= {_rate_pct(r.rate)}"
