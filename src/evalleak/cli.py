@@ -14,3 +14,17 @@ exits with 2 on argument errors, which matches the standard.
 from __future__ import annotations
 
 import argparse
+import sys
+
+from . import __version__, report as report_module
+from .normalise import NormaliseConfig
+from .overlap import compare
+from .records import ManifestError, load_manifest
+
+
+def _add_common(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "manifests",
+        nargs="+",
+        help="split manifest files to compare",
+    )
