@@ -43,3 +43,18 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
         action="store_true",
         help="disable punctuation removal",
     )
+    parser.add_argument(
+        "--k",
+        type=int,
+        default=5,
+        help="character shingle length (default 5)",
+    )
+    parser.add_argument(
+        "--num-perm",
+        type=int,
+        default=128,
+        help="MinHash permutation count (default 128)",
+    )
+    parser.add_argument(
+        "--near-threshold",
+        type=float,
