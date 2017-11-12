@@ -58,3 +58,17 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--near-threshold",
         type=float,
+        default=0.6,
+        help="minimum Jaccard estimate for a near duplicate (default 0.6)",
+    )
+    parser.add_argument(
+        "--min-containment",
+        type=int,
+        default=16,
+        help="minimum normalised length for a containment match (default 16)",
+    )
+
+
+def _config_from_args(args: argparse.Namespace) -> NormaliseConfig:
+    return NormaliseConfig(
+        whitespace=not args.no_whitespace,
