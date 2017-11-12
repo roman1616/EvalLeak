@@ -28,3 +28,18 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
         nargs="+",
         help="split manifest files to compare",
     )
+    parser.add_argument(
+        "--no-whitespace",
+        action="store_true",
+        help="disable whitespace normalisation",
+    )
+    parser.add_argument(
+        "--no-case",
+        action="store_true",
+        help="disable case folding",
+    )
+    parser.add_argument(
+        "--no-punctuation",
+        action="store_true",
+        help="disable punctuation removal",
+    )
