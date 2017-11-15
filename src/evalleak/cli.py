@@ -87,3 +87,18 @@ def _load_all(args: argparse.Namespace):
 def _run_compare(args: argparse.Namespace):
     manifests = _load_all(args)
     return compare(
+        manifests,
+        config=_config_from_args(args),
+        k=args.k,
+        num_perm=args.num_perm,
+        near_threshold=args.near_threshold,
+        min_containment=args.min_containment,
+    )
+
+
+def _cmd_exact(args: argparse.Namespace) -> int:
+    result = _run_compare(args)
+    for line in report_module.render_exact(result):
+        print(line)
+    return 1 if result.exact else 0
+
