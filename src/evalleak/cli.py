@@ -72,3 +72,18 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
 def _config_from_args(args: argparse.Namespace) -> NormaliseConfig:
     return NormaliseConfig(
         whitespace=not args.no_whitespace,
+        case=not args.no_case,
+        punctuation=not args.no_punctuation,
+    )
+
+
+def _load_all(args: argparse.Namespace):
+    manifests = []
+    for path in args.manifests:
+        manifests.append(load_manifest(path))
+    return manifests
+
+
+def _run_compare(args: argparse.Namespace):
+    manifests = _load_all(args)
+    return compare(
