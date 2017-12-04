@@ -116,3 +116,18 @@ def _cmd_report(args: argparse.Namespace) -> int:
         print(line)
     return 1 if result.has_findings() else 0
 
+
+def _cmd_version(args: argparse.Namespace) -> int:
+    print(f"evalleak {__version__}")
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="evalleak",
+        description="Detect contamination between training and evaluation splits.",
+    )
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p_exact = sub.add_parser("exact", help="print exact cross-split duplicates")
+    _add_common(p_exact)
