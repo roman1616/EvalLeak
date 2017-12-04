@@ -102,3 +102,17 @@ def _cmd_exact(args: argparse.Namespace) -> int:
         print(line)
     return 1 if result.exact else 0
 
+
+def _cmd_near(args: argparse.Namespace) -> int:
+    result = _run_compare(args)
+    for line in report_module.render_near(result):
+        print(line)
+    return 1 if result.near else 0
+
+
+def _cmd_report(args: argparse.Namespace) -> int:
+    result = _run_compare(args)
+    for line in report_module.render_report(result):
+        print(line)
+    return 1 if result.has_findings() else 0
+
