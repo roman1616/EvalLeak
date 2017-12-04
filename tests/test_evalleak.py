@@ -20,3 +20,17 @@ def _sample(name):
 
 
 class RecordsTests(unittest.TestCase):
+    def test_parse_basic(self):
+        m = parse_manifest("split: train\n\nid: a\ntext: hello\n")
+        self.assertEqual(m.split, "train")
+        self.assertEqual(len(m), 1)
+        self.assertEqual(m.records[0].record_id, "a")
+        self.assertEqual(m.records[0].text, "hello")
+
+    def test_missing_split(self):
+        with self.assertRaises(ManifestError):
+            parse_manifest("id: a\ntext: hello\n")
+
+    def test_duplicate_id(self):
+        with self.assertRaises(ManifestError):
+            parse_manifest("split: t\n\nid: a\ntext: x\n\nid: a\ntext: y\n")
