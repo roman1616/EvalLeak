@@ -34,3 +34,17 @@ class RecordsTests(unittest.TestCase):
     def test_duplicate_id(self):
         with self.assertRaises(ManifestError):
             parse_manifest("split: t\n\nid: a\ntext: x\n\nid: a\ntext: y\n")
+
+    def test_missing_text(self):
+        with self.assertRaises(ManifestError):
+            parse_manifest("split: t\n\nid: a\n")
+
+    def test_comments_ignored(self):
+        m = parse_manifest("# note\nsplit: t\n\n# another\nid: a\ntext: hi\n")
+        self.assertEqual(len(m), 1)
+
+
+class NormaliseTests(unittest.TestCase):
+    def test_whitespace(self):
+        cfg = NormaliseConfig(whitespace=True, case=False, punctuation=False)
+        self.assertEqual(normalise("a\t b\n  c", cfg), "a b c")
