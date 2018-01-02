@@ -62,3 +62,17 @@ class NormaliseTests(unittest.TestCase):
         self.assertEqual(normalise("A, B ", cfg), "A, B ")
         self.assertEqual(cfg.describe(), "none")
 
+    def test_digest_matches_after_normalisation(self):
+        a = "Hello, WORLD!"
+        b = "hello world"
+        self.assertEqual(digest(a), digest(b))
+
+    def test_describe(self):
+        self.assertEqual(NormaliseConfig().describe(), "whitespace,case,punctuation")
+
+
+class ShingleTests(unittest.TestCase):
+    def test_shingles_count(self):
+        s = shingles("abcdef", k=3)
+        self.assertEqual(s, {"abc", "bcd", "cde", "def"})
+
