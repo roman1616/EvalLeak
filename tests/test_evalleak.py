@@ -91,3 +91,17 @@ class ShingleTests(unittest.TestCase):
         b = MinHash.from_shingles(shingles("zzzzzzzzzz", k=3))
         self.assertEqual(a.jaccard(b), 0.0)
 
+    def test_minhash_estimate_within_error(self):
+        # The MinHash estimate should be close to the exact Jaccard.
+        text_a = "the mitochondria is the powerhouse of the cell"
+        text_b = "the mitochondria is the powerhouse of the cel"
+        sa = shingles(text_a, k=5)
+        sb = shingles(text_b, k=5)
+        exact = exact_jaccard(sa, sb)
+        est = MinHash.from_shingles(sa, 256).jaccard(MinHash.from_shingles(sb, 256))
+        # Standard error for MinHash is about 1/sqrt(num_perm); allow a margin.
+        self.assertLess(abs(exact - est), 0.15)
+
+    def test_minhash_deterministic(self):
+        s = shingles("determinism matters here", k=4)
+        self.assertEqual(
