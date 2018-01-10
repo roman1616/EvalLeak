@@ -76,3 +76,18 @@ class ShingleTests(unittest.TestCase):
         s = shingles("abcdef", k=3)
         self.assertEqual(s, {"abc", "bcd", "cde", "def"})
 
+    def test_short_text(self):
+        self.assertEqual(shingles("ab", k=5), {"ab"})
+        self.assertEqual(shingles("", k=5), set())
+
+    def test_minhash_identical(self):
+        s = shingles("the quick brown fox jumps", k=4)
+        a = MinHash.from_shingles(s)
+        b = MinHash.from_shingles(s)
+        self.assertEqual(a.jaccard(b), 1.0)
+
+    def test_minhash_disjoint(self):
+        a = MinHash.from_shingles(shingles("aaaaaaaaaa", k=3))
+        b = MinHash.from_shingles(shingles("zzzzzzzzzz", k=3))
+        self.assertEqual(a.jaccard(b), 0.0)
+
