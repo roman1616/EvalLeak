@@ -105,3 +105,17 @@ class ShingleTests(unittest.TestCase):
     def test_minhash_deterministic(self):
         s = shingles("determinism matters here", k=4)
         self.assertEqual(
+            MinHash.from_shingles(s).signature,
+            MinHash.from_shingles(s).signature,
+        )
+
+
+class ContainmentTests(unittest.TestCase):
+    def test_prefix(self):
+        pos = find_containment(
+            "water boils at one hundred degrees",
+            "water boils at one hundred degrees celsius at standard pressure",
+        )
+        self.assertEqual(pos, "prefix")
+
+    def test_interior(self):
