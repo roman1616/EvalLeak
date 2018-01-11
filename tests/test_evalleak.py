@@ -133,3 +133,17 @@ class ContainmentTests(unittest.TestCase):
 
 
 class OverlapTests(unittest.TestCase):
+    def _load(self):
+        from evalleak.records import load_manifest
+
+        return [
+            load_manifest(_sample("train.manifest")),
+            load_manifest(_sample("validation.manifest")),
+            load_manifest(_sample("test.manifest")),
+        ]
+
+    def test_all_finding_kinds_present(self):
+        report = compare(self._load())
+        self.assertEqual(len(report.exact), 1)
+        self.assertEqual(len(report.near), 1)
+        self.assertEqual(len(report.containment), 1)
