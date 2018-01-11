@@ -119,3 +119,17 @@ class ContainmentTests(unittest.TestCase):
         self.assertEqual(pos, "prefix")
 
     def test_interior(self):
+        pos = find_containment(
+            "powerhouse of the cell here",
+            "the mitochondria is the powerhouse of the cell here indeed",
+        )
+        self.assertEqual(pos, "interior")
+
+    def test_too_short_ignored(self):
+        self.assertIsNone(find_containment("a b", "a b c d e f g h"))
+
+    def test_equal_is_not_containment(self):
+        self.assertIsNone(find_containment("identical text here", "identical text here"))
+
+
+class OverlapTests(unittest.TestCase):
