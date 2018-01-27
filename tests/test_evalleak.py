@@ -147,3 +147,17 @@ class OverlapTests(unittest.TestCase):
         self.assertEqual(len(report.exact), 1)
         self.assertEqual(len(report.near), 1)
         self.assertEqual(len(report.containment), 1)
+        self.assertEqual(len(report.intra), 1)
+
+    def test_exact_pair(self):
+        report = compare(self._load())
+        m = report.exact[0]
+        self.assertEqual((m.split_a, m.id_a), ("test", "e1"))
+        self.assertEqual((m.split_b, m.id_b), ("train", "t2"))
+
+    def test_near_above_threshold(self):
+        report = compare(self._load())
+        self.assertGreaterEqual(report.near[0].jaccard, 0.6)
+
+    def test_containment_pair(self):
+        report = compare(self._load())
