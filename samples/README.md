@@ -17,3 +17,11 @@ Each record body is a short, factual sentence written for this repository.
 - Near duplicate: `validation/v1` is `train/t1` rewritten in upper case, with
   extra punctuation, and with the single word "IT" inserted. The punctuation
   and case differences are erased by normalisation, but the inserted word keeps
+  it below an exact match, so it surfaces as a near duplicate rather than an
+  exact one. Estimated Jaccard is about 0.88 with the default settings.
+- Containment: `test/e2` is a sentence about the boiling point of water that
+  appears verbatim as the opening of the longer `train/t5` record, so it is
+  reported as a prefix containment.
+- Intra-split duplicate: `train/t3` and `train/t6` are the same sentence about
+  binary search, inside the same split, which inflates the apparent train size.
+
