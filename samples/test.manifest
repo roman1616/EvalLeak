@@ -2,3 +2,6 @@
 # See samples/README.md for how each record was constructed.
 split: test
 
+id: e1
+text: Photosynthesis converts light energy into chemical energy stored in glucose.
+
