@@ -5,3 +5,9 @@ split: train
 id: t1
 text: The mitochondria is the powerhouse of the cell and supplies chemical energy.
 
+id: t2
+text: Photosynthesis converts light energy into chemical energy stored in glucose.
+
+id: t3
+text: A binary search halves the search interval each step, giving logarithmic time.
+
