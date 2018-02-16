@@ -1,1 +1,4 @@
 # validation split manifest for evalleak
+# See samples/README.md for how each record was constructed.
+split: validation
+
