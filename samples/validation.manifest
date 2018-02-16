@@ -2,3 +2,6 @@
 # See samples/README.md for how each record was constructed.
 split: validation
 
+id: v1
+text: THE MITOCHONDRIA IS THE POWERHOUSE OF THE CELL, AND IT SUPPLIES CHEMICAL ENERGY!!!
+
