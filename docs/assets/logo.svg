@@ -10,3 +10,8 @@
   -->
   <title id="title">evalleak wordmark</title>
   <desc id="desc">The word evalleak with eval in slate and leak in amber, split
+    at the morpheme boundary, above a short baseline rule.</desc>
+  <rect x="0" y="0" width="240" height="96" fill="#ffffff"/>
+  <g font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+     font-size="40" font-weight="700">
+    <text x="20" y="56" fill="#1f2933">eval</text>
