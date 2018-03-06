@@ -13,3 +13,11 @@
     Record counts: train 6, validation 3, test 3.
     Cross-split contamination findings per split pair:
       train and test: 2 (one exact, one containment)
+      train and validation: 1 (one near)
+      validation and test: 0
+    Intra-split duplicates in train: 1.
+    Total distinct contaminated records: 8.
+  -->
+  <title id="title">evalleak split overlap</title>
+  <desc id="desc">Record counts per split as bars: train six, validation three,
+    test three. Contamination findings between split pairs: train and test two,
