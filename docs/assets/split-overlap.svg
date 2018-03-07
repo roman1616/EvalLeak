@@ -46,3 +46,12 @@
     <text x="326" y="170" text-anchor="middle" fill="#1f2933" font-weight="700">3</text>
 
     <!-- test: 3 records, height 72 -->
+    <rect x="430" y="178" width="72" height="72" fill="#1f2933"/>
+    <text x="466" y="270" text-anchor="middle" fill="#1f2933">test</text>
+    <text x="466" y="170" text-anchor="middle" fill="#1f2933" font-weight="700">3</text>
+
+    <text x="120" y="90" text-anchor="end" fill="#7b8794">records</text>
+  </g>
+
+  <!-- Contamination edge summary as a labelled table below the bars. -->
+  <g font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
