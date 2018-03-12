@@ -6,3 +6,4 @@ All notable changes to this project are recorded here.
 
 Initial release.
 
+- Split manifest parser with loud failure on malformed input (records.py).
