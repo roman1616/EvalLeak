@@ -14,3 +14,4 @@ Initial release.
 - Prefix, suffix, and interior substring containment detection (containment.py).
 - Pairwise split comparison with directional contamination rates and intra-split
   duplicate detection (overlap.py).
+- Line-oriented report rendering (report.py).
