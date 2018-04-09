@@ -10,3 +10,4 @@ Initial release.
 - Normalisation with individually switchable whitespace, case, and punctuation
   steps (normalise.py).
 - Character k-shingling and a hashlib MinHash sketch for a Jaccard estimate
+  (shingle.py).
