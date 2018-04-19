@@ -16,3 +16,4 @@ Initial release.
   duplicate detection (overlap.py).
 - Line-oriented report rendering (report.py).
 - CLI subcommands: exact, near, report, version.
+- Exit codes: 0 clean, 1 contamination present, 2 usage error.
