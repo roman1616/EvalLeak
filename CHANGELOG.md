@@ -17,3 +17,4 @@ Initial release.
 - Line-oriented report rendering (report.py).
 - CLI subcommands: exact, near, report, version.
 - Exit codes: 0 clean, 1 contamination present, 2 usage error.
+- Sample fixtures for one exact, one near, one containment, and one intra-split
