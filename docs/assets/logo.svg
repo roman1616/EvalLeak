@@ -2,16 +2,3 @@
      aria-labelledby="title desc" width="240" height="96">
   <!--
     Palette reason: the compound name splits at the morpheme boundary
-    eval | leak. "eval" is set in a calm slate ink (#1f2933), the clean part
-    of the pipeline. "leak" is set in the one accent, a warning amber
-    (#b45309), the part the reader should worry about. A single neutral rule
-    under the word marks the split line the tool defends. Two colours plus one
-    accent, no gradients, no AI-default palette.
-  -->
-  <title id="title">evalleak wordmark</title>
-  <desc id="desc">The word evalleak with eval in slate and leak in amber, split
-    at the morpheme boundary, above a short baseline rule.</desc>
-  <rect x="0" y="0" width="240" height="96" fill="#ffffff"/>
-  <g font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
-     font-size="40" font-weight="700">
-    <text x="20" y="56" fill="#1f2933">eval</text>
