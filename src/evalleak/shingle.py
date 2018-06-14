@@ -75,3 +75,19 @@ class MinHash:
         """
         if self.num_perm != other.num_perm:
             raise ValueError("signatures use different num_perm")
+        matches = sum(1 for a, b in zip(self.signature, other.signature) if a == b)
+        return matches / self.num_perm
+
+
+def exact_jaccard(a: set[str], b: set[str]) -> float:
+    """Return the exact Jaccard similarity of two sets.
+
+    Used by the tests to bound the MinHash estimate error, and available to
+    callers that can afford the exact computation.
+    """
+    if not a and not b:
+        return 1.0
+    union = a | b
+    if not union:
+        return 1.0
+# review note
