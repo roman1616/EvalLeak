@@ -27,3 +27,7 @@
   <rect x="0" y="0" width="560" height="400" fill="#ffffff"/>
 
   <text x="32" y="40" font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+        font-size="18" font-weight="700" fill="#1f2933">Records per split and contamination between splits</text>
+
+  <!-- Bar chart of record counts. Scale: 24px per record. -->
+  <g font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
