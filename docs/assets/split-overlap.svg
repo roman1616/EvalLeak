@@ -14,3 +14,7 @@
     Cross-split contamination findings per split pair:
       train and test: 2 (one exact, one containment)
       train and validation: 1 (one near)
+      validation and test: 0
+    Intra-split duplicates in train: 1.
+    Total distinct contaminated records: 8.
+  -->
