@@ -1,3 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img"
      aria-labelledby="title desc" width="240" height="96">
   <!--
+    Palette reason: the compound name splits at the morpheme boundary
+    eval | leak. "eval" is set in a calm slate ink (#1f2933), the clean part
+    of the pipeline. "leak" is set in the one accent, a warning amber
