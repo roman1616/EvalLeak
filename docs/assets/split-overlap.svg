@@ -31,3 +31,8 @@
 
   <!-- Bar chart of record counts. Scale: 24px per record. -->
   <g font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+     font-size="13" fill="#1f2933">
+    <!-- baseline at y=250, bars grow upward -->
+    <line x1="120" y1="250" x2="520" y2="250" stroke="#7b8794" stroke-width="1"/>
+
+    <!-- train: 6 records, height 144 -->
