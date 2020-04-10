@@ -72,3 +72,18 @@ def normalise(text: str, config: NormaliseConfig = NormaliseConfig()) -> str:
         result = _collapse_whitespace(result)
     if config.case:
         result = result.lower()
+    if config.punctuation:
+        result = _drop_punctuation(result)
+        # Re-collapse so removed punctuation does not leave double spaces.
+        result = _collapse_whitespace(result)
+    return result
+
+
+def digest(text: str, config: NormaliseConfig = NormaliseConfig()) -> str:
+    """Return a hex sha256 digest of the normalised text.
+
+    Two records with the same digest are exact duplicates under the given
+    normalisation config.
+    """
+    normalised = normalise(text, config)
+# review note
