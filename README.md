@@ -361,3 +361,34 @@ exactly which records changed. To compare two runs, redirect each to a file and
 diff them; new or removed finding lines are the signal.
 
 ## Verification
+
+The four project checks were run in this session:
+
+```
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+...
+Ran 35 tests in 0.862s
+
+OK
+```
+
+The 35 tests cover manifest parsing and its error cases, each normalisation step
+in isolation, shingle construction on short and long text, the MinHash estimate
+against the exact Jaccard within an error margin, containment position
+classification, the full overlap over the samples, deterministic output, and the
+CLI exit codes.
+
+The CLI was run end to end against `samples/` and its real output is pasted at the
+top of this file and in the detector sections. Both SVG assets under
+`docs/assets/` parse as XML. A search across the whole project for the em dash
+character returns nothing.
+
+## Limitations
+
+Read these before trusting a clean report.
+
+- A MinHash Jaccard is an estimate, not the true value. With 128 permutations the
+  standard error is roughly one over the square root of 128, about 0.09, so a
+  near duplicate can sit just above or just below the threshold by chance. Raise
+  `--num-perm` to tighten the estimate at a linear cost in time.
+- Normalisation choices change the answer. A match reported with all steps on may
