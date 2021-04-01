@@ -18,3 +18,8 @@
     Intra-split duplicates in train: 1.
     Total distinct contaminated records: 8.
   -->
+  <title id="title">evalleak split overlap</title>
+  <desc id="desc">Record counts per split as bars: train six, validation three,
+    test three. Contamination findings between split pairs: train and test two,
+    train and validation one, validation and test zero. Train has one
+    intra-split duplicate. Total contaminated records eight.</desc>
