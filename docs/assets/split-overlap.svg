@@ -5,3 +5,7 @@
     clean measured data, and one accent, warning amber (#b45309), reserved for
     the contamination edges between splits, the thing the reader should look at
     first. A lighter slate (#7b8794) is a neutral for axes and labels. Two
+    colours plus one accent, flat fills, no gradient.
+
+    Number sources, all from a real run of:
+      python -m evalleak report samples/train.manifest \
