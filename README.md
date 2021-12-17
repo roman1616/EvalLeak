@@ -117,3 +117,34 @@ split: train
 
 id: t1
 text: The mitochondria is the powerhouse of the cell and supplies chemical energy.
+
+id: t2
+text: Photosynthesis converts light energy into chemical energy stored in glucose.
+```
+
+Comment lines begin with a hash. A record must have both an `id:` and a `text:`
+line, and ids must be unique within a split. A malformed manifest is a usage
+error, not a silent skip.
+
+## The four detectors
+
+The `exact` and `near` subcommands run one detector each and print just that
+class of finding. The `report` subcommand runs all four and prints the full
+picture, including the per-pair rates. Here are the two focused subcommands
+against the samples:
+
+```
+$ PYTHONPATH=src python -m EvalLeak exact samples/train.manifest samples/validation.manifest samples/test.manifest
+exact cross-split duplicates:
+  test/e1 == train/t2  digest=61b2a8f4c53e
+```
+
+```
+$ PYTHONPATH=src python -m EvalLeak near samples/train.manifest samples/validation.manifest samples/test.manifest
+near cross-split duplicates (jaccard >= 0.60, k=5, num_perm=128):
+  train/t1 ~ validation/v1  jaccard~=0.883
+```
+
+Both subcommands exit 1 when they find anything, so a bare `exact` check is a
+usable gate on its own.
+
