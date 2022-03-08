@@ -280,3 +280,43 @@ def _sort_findings(report: OverlapReport) -> None:
     report.intra.sort(key=lambda m: (m.split, m.id_a, m.id_b))
 
 
+def _compute_pair_rates(
+    report: OverlapReport,
+    by_split: dict[str, Manifest],
+    split_names: list[str],
+) -> list[PairRate]:
+    """Compute directional contamination rates for every ordered split pair."""
+    # Collect, per ordered pair, the target ids touched by any cross finding.
+    touched: dict[tuple[str, str], set[str]] = {}
+
+    def touch(source: str, target: str, target_id: str) -> None:
+        touched.setdefault((source, target), set()).add(target_id)
+
+    for m in report.exact:
+        touch(m.split_a, m.split_b, m.id_b)
+        touch(m.split_b, m.split_a, m.id_a)
+    for m in report.near:
+        touch(m.split_a, m.split_b, m.id_b)
+        touch(m.split_b, m.split_a, m.id_a)
+    for m in report.containment:
+        touch(m.split_long, m.split_short, m.id_short)
+        touch(m.split_short, m.split_long, m.id_long)
+
+    rates: list[PairRate] = []
+    for source in split_names:
+        for target in split_names:
+            if source == target:
+                continue
+            contaminated = len(touched.get((source, target), set()))
+            if contaminated == 0:
+                continue
+            rates.append(
+                PairRate(
+                    source=source,
+                    target=target,
+                    contaminated=contaminated,
+                    total=len(by_split[target]),
+                )
+            )
+    rates.sort(key=lambda r: (r.source, r.target))
+# review note
