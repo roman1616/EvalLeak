@@ -87,3 +87,33 @@ Given two or more split manifests, EvalLeak runs four checks:
 - Containment across splits, where a shorter evaluation item is a substring of a
   longer training record (prefix, suffix, or interior).
 - Intra-split duplicates, exact duplicates inside one split, which inflate the
+  apparent dataset size without adding information.
+
+Every check is offline, deterministic, and built on the Python standard library
+only. There is no network access anywhere in the code.
+
+## Install and run
+
+EvalLeak targets Python 3.11 and has no third-party runtime dependencies. Run it
+straight from a checkout with the package on the path:
+
+```
+$ PYTHONPATH=src python -m EvalLeak version
+EvalLeak 0.1.0
+```
+
+Or install it and use the console script:
+
+```
+pip install .
+EvalLeak report split_a.manifest split_b.manifest
+```
+
+A manifest is a small line-oriented text file. It declares one split name, then
+lists records, each with an id and a single line of text:
+
+```
+split: train
+
+id: t1
+text: The mitochondria is the powerhouse of the cell and supplies chemical energy.
