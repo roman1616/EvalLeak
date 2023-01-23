@@ -40,3 +40,8 @@
     <text x="186" y="270" text-anchor="middle" fill="#1f2933">train</text>
     <text x="186" y="98" text-anchor="middle" fill="#1f2933" font-weight="700">6</text>
 
+    <!-- validation: 3 records, height 72 -->
+    <rect x="290" y="178" width="72" height="72" fill="#1f2933"/>
+    <text x="326" y="270" text-anchor="middle" fill="#1f2933">validation</text>
+    <text x="326" y="170" text-anchor="middle" fill="#1f2933" font-weight="700">3</text>
+
