@@ -209,3 +209,33 @@ The `report` output is line oriented so it diffs cleanly in git. The fields are:
 | containment              | `<a>/<id> inside <b>/<id>  position=<pos>`             | Short record contained in long record, with position          |
 | intra-split              | `<split>/<id> == <split>/<id>  digest=<12 hex>`        | Duplicate inside one split                                     |
 | contamination rate       | `<source> -> <target>: <c>/<t> = <pct>`                | Directional rate, contaminated over target size               |
+| total                    | `total contaminated records: <n>`                      | Distinct records involved in any finding, across all splits    |
+
+The digest is truncated to 12 hex characters for readability. The full sha256 is
+computed internally; the prefix is enough to correlate two lines by eye.
+
+## Exit codes
+
+| Code | Meaning                                                         |
+|------|-----------------------------------------------------------------|
+| 0    | Clean, no findings for the subcommand that ran                  |
+| 1    | Findings present                                                |
+| 2    | Usage error, including a missing or malformed manifest          |
+
+argparse itself exits with 2 on an unknown flag or a missing argument, which
+matches the usage-error code.
+
+## Normalisation, and why each step is switchable
+
+Normalisation decides which records count as "the same", and it is the single
+biggest lever on the result. More aggressive normalisation collapses more surface
+differences and reports more contamination. Each step is a separate flag so the
+aggressiveness is visible and so you can see which transformation caused a match:
+
+| Step        | Flag to disable    | Effect                                             |
+|-------------|--------------------|----------------------------------------------------|
+| whitespace  | `--no-whitespace`  | Collapse every run of whitespace to one space      |
+| case        | `--no-case`        | Lowercase the text                                 |
+| punctuation | `--no-punctuation` | Drop ASCII punctuation, then re-collapse whitespace|
+
+The default enables all three, the most aggressive setting. For contamination
