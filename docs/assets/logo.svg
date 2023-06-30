@@ -15,3 +15,6 @@
   <g font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
      font-size="40" font-weight="700">
     <text x="20" y="56" fill="#1f2933">eval</text>
+    <text x="112" y="56" fill="#b45309">leak</text>
+  </g>
+  <!-- The split line: clean side solid slate, leak side dashed amber. -->
