@@ -392,3 +392,33 @@ Read these before trusting a clean report.
   near duplicate can sit just above or just below the threshold by chance. Raise
   `--num-perm` to tighten the estimate at a linear cost in time.
 - Normalisation choices change the answer. A match reported with all steps on may
+  vanish with punctuation removal off. The report prints the active steps so the
+  setting is never hidden, but there is no single correct setting.
+- Semantic duplication is not detected at all. Two records that say the same thing
+  in different words share no shingles and produce no finding. EvalLeak measures
+  textual overlap, not meaning. A paraphrase leak is invisible to it.
+- Containment uses a length guard, so a genuinely short evaluation item can slip
+  under `min_length` and go unreported. Lower the guard only if you accept more
+  coincidental matches.
+- The comparison is pairwise and quadratic in the number of records per split
+  pair. It is built for split manifests of manageable size, not for deduplicating
+  a corpus of millions of records.
+
+## Roadmap
+
+No dates. In rough priority order:
+
+- A blocking mode that shards records to reduce the quadratic pair count.
+- A JSON output mode alongside the line-oriented text, for machine consumers.
+- Token shingling as an option next to character shingling.
+- A diff subcommand that compares two report files directly.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+<p align="right">
+  <img src="docs/assets/logo.svg" width="200"
+       alt="EvalLeak wordmark with eval in slate and leak in amber, split at the
+       morpheme boundary above a baseline rule">
+</p>
