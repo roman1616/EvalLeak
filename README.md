@@ -270,3 +270,33 @@ function of the input. The rejected alternative, seeded randomness, would have
 needed the seed recorded in the output and would still surprise anyone diffing
 two runs.
 
+Containment as normalised substring search, separate from the near check. A short
+item inside a long document has a low whole-record Jaccard, because the long
+document contributes many shingles the item does not share, so the near check
+misses it. Substring search after normalisation catches it directly. The
+`min_length` guard exists because a very short item is contained in almost any
+document by chance, which would be noise, not contamination.
+
+Directional rates rather than one symmetric number. Leaking a training record
+into a small test split is far worse than the reverse, and a single symmetric
+overlap number would hide the direction. Reporting both directions costs two
+lines and keeps the asymmetry visible.
+
+## The split overlap graphic
+
+![Bar chart of record counts per split, train six, validation three, test three,
+with a table of contamination findings between split pairs: train and test two,
+train and validation one, validation and test zero.](docs/assets/split-overlap.svg)
+
+Every number in the graphic comes from the `report` run shown at the top of this
+file: the record counts per split, the count of cross-split findings for each
+split pair, and the total of eight contaminated records. The bars use the slate
+ink, and the one accent, amber, is reserved for the contamination edges, the
+thing to look at first.
+
+## Repository layout
+
+```
+EvalLeak/
+  README.md                     this file
+  LICENSE                       MIT, holder "the EvalLeak authors", 2026
