@@ -331,3 +331,33 @@ EvalLeak/
 - Manifest: the text file that declares one split and lists its records.
 - Record: one text item in a split, with an id and a body.
 - Normalisation: the whitespace, case, and punctuation transforms applied before
+  comparison.
+- Digest: the sha256 hash of a record's normalised text. Equal digests mean an
+  exact duplicate under the current normalisation.
+- Shingle: a fixed-length substring. EvalLeak uses character 5-shingles by
+  default.
+- Jaccard similarity: the size of the intersection over the size of the union of
+  two sets. Here, the sets of shingles.
+- MinHash: a fixed-size signature whose matching-minima fraction estimates the
+  Jaccard similarity.
+- Containment: the case where one record's normalised text is a substring of
+  another's.
+- Contamination rate: contaminated records in a target split over the target
+  split size, reported per direction.
+
+## Integration notes
+
+EvalLeak is a gate. In CI, run it over your split manifests and let the exit code
+fail the job:
+
+```
+PYTHONPATH=src python -m EvalLeak report train.manifest val.manifest test.manifest
+```
+
+A zero exit means clean, a one means findings, and a two means the manifests
+could not be parsed. Because the output is deterministic and line oriented, you
+can commit a known-good report and diff future runs against it in git to see
+exactly which records changed. To compare two runs, redirect each to a file and
+diff them; new or removed finding lines are the signal.
+
+## Verification
