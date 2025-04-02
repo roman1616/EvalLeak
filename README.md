@@ -239,3 +239,34 @@ aggressiveness is visible and so you can see which transformation caused a match
 | punctuation | `--no-punctuation` | Drop ASCII punctuation, then re-collapse whitespace|
 
 The default enables all three, the most aggressive setting. For contamination
+detection that is the safer default: a borderline match a human can dismiss is
+better than a real leak that is never seen. Turn steps off when you want to know
+whether a match survives without that transformation. If `train/t1` and
+`validation/v1` stop matching once punctuation removal is off, you have learned
+that punctuation is doing the work, which is a weaker signal than a match that
+survives every step.
+
+## Design decisions
+
+Line-oriented text manifests over JSON. The fixtures and the output both need to
+diff cleanly, and a record body full of punctuation is awkward to keep readable
+inside escaped JSON strings. The rejected alternative was JSON Lines, which is
+more standard but harder to author and read by hand, and the whole point of the
+sample fixtures is that a person can see the planted cases at a glance.
+
+MinHash over exact Jaccard for the near check. Exact Jaccard needs the full
+shingle set for every record and a set intersection for every pair, which is
+quadratic in both records and record length. A MinHash signature is a fixed size
+regardless of record length, and the comparison is a cheap count of matching
+minima. The cost is an estimate with error bounds rather than an exact number.
+The rejected alternative, exact Jaccard, is what the test suite uses to bound the
+estimate error, so the trade is measured, not assumed.
+
+hashlib for the MinHash permutations. A real MinHash usually draws random hash
+coefficients. That would make the output depend on a seed, which breaks the
+byte-identical determinism the project requires. Instead each of the 128
+"permutations" is sha256 salted with its index, so the signature is a pure
+function of the input. The rejected alternative, seeded randomness, would have
+needed the seed recorded in the output and would still surprise anyone diffing
+two runs.
+
