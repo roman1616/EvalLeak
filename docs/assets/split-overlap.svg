@@ -54,3 +54,7 @@
   </g>
 
   <!-- Contamination edge summary as a labelled table below the bars. -->
+  <g font-family="&quot;Cascadia Mono&quot;, &quot;JetBrains Mono&quot;, Consolas, &quot;DejaVu Sans Mono&quot;, monospace"
+     font-size="13">
+    <text x="32" y="312" font-family="-apple-system, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif"
+          font-size="14" font-weight="700" fill="#1f2933">contamination findings between splits</text>
