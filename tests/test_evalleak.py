@@ -189,3 +189,36 @@ class OverlapTests(unittest.TestCase):
         report = compare([m1, m2])
         self.assertFalse(report.has_findings())
 
+
+class CliTests(unittest.TestCase):
+    def _args(self, cmd):
+        return [
+            cmd,
+            _sample("train.manifest"),
+            _sample("validation.manifest"),
+            _sample("test.manifest"),
+        ]
+
+    def test_version(self):
+        self.assertEqual(main(["version"]), 0)
+
+    def test_report_exit_one_on_findings(self):
+        self.assertEqual(main(self._args("report")), 1)
+
+    def test_exact_exit_one(self):
+        self.assertEqual(main(self._args("exact")), 1)
+
+    def test_near_exit_one(self):
+        self.assertEqual(main(self._args("near")), 1)
+
+    def test_missing_file_usage_error(self):
+        self.assertEqual(main(["report", "nope_does_not_exist.manifest"]), 2)
+
+
+class VersionTests(unittest.TestCase):
+    def test_version_string(self):
+        self.assertEqual(__version__, "0.1.0")
+
+
+if __name__ == "__main__":
+    unittest.main()
