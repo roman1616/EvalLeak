@@ -111,3 +111,24 @@ def parse_manifest(source: str, *, filename: str = "<string>") -> Manifest:
             if value == "":
                 raise ManifestError(f"{filename}:{index}: split name is empty")
             split_name = value
+        elif key == "id":
+            if current_id is not None:
+                flush(index)
+            current_id = value
+        elif key == "text":
+            current_text = value
+        else:
+            raise ManifestError(f"{filename}:{index}: unknown key {key!r}")
+
+    flush(len(lines) + 1)
+
+    if split_name is None:
+        raise ManifestError(f"{filename}: no split: declaration found")
+
+    return Manifest(split=split_name, records=tuple(records))
+
+
+def load_manifest(path: str) -> Manifest:
+    """Read a manifest file from disk and parse it."""
+    with open(path, "r", encoding="utf-8") as handle:
+        return parse_manifest(handle.read(), filename=path)
