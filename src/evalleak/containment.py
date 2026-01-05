@@ -53,3 +53,15 @@ def find_containment(
     Both texts are normalised with the same config first. A short text whose
     normalised form is below min_length characters is ignored to avoid trivial
     coincidental matches.
+    """
+    short_norm = normalise(short_text, config)
+    long_norm = normalise(long_text, config)
+    if len(short_norm) < min_length:
+        return None
+    if short_norm == long_norm:
+        # Equal texts are an exact duplicate, not containment. Let the exact
+        # check own that case so a finding is not counted twice.
+        return None
+    if short_norm in long_norm:
+        return _position(long_norm, short_norm)
+    return None
