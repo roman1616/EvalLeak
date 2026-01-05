@@ -86,4 +86,4 @@ def digest(text: str, config: NormaliseConfig = NormaliseConfig()) -> str:
     normalisation config.
     """
     normalised = normalise(text, config)
-# review note
+    return hashlib.sha256(normalised.encode("utf-8")).hexdigest()
