@@ -18,3 +18,7 @@ Initial release.
 - CLI subcommands: exact, near, report, version.
 - Exit codes: 0 clean, 1 contamination present, 2 usage error.
 - Sample fixtures for one exact, one near, one containment, and one intra-split
+  case.
+- A split overlap data graphic and a wordmark logo.
+
+# draft note 1
