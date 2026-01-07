@@ -331,3 +331,155 @@ EvalLeak/
 - Manifest: the text file that declares one split and lists its records.
 - Record: one text item in a split, with an id and a body.
 - Normalisation: the whitespace, case, and punctuation transforms applied before
+  comparison.
+- Digest: the sha256 hash of a record's normalised text. Equal digests mean an
+  exact duplicate under the current normalisation.
+- Shingle: a fixed-length substring. EvalLeak uses character 5-shingles by
+  default.
+- Jaccard similarity: the size of the intersection over the size of the union of
+  two sets. Here, the sets of shingles.
+- MinHash: a fixed-size signature whose matching-minima fraction estimates the
+  Jaccard similarity.
+- Containment: the case where one record's normalised text is a substring of
+  another's.
+- Contamination rate: contaminated records in a target split over the target
+  split size, reported per direction.
+
+## Integration notes
+
+EvalLeak is a gate. In CI, run it over your split manifests and let the exit code
+fail the job:
+
+```
+PYTHONPATH=src python -m EvalLeak report train.manifest val.manifest test.manifest
+```
+
+A zero exit means clean, a one means findings, and a two means the manifests
+could not be parsed. Because the output is deterministic and line oriented, you
+can commit a known-good report and diff future runs against it in git to see
+exactly which records changed. To compare two runs, redirect each to a file and
+diff them; new or removed finding lines are the signal.
+
+## Verification
+
+The four project checks were run in this session:
+
+```
+$ PYTHONPATH=src python -m unittest discover -s tests -v
+...
+Ran 35 tests in 0.862s
+
+OK
+```
+
+The 35 tests cover manifest parsing and its error cases, each normalisation step
+in isolation, shingle construction on short and long text, the MinHash estimate
+against the exact Jaccard within an error margin, containment position
+classification, the full overlap over the samples, deterministic output, and the
+CLI exit codes.
+
+The CLI was run end to end against `samples/` and its real output is pasted at the
+top of this file and in the detector sections. Both SVG assets under
+`docs/assets/` parse as XML. A search across the whole project for the em dash
+character returns nothing.
+
+## Limitations
+
+Read these before trusting a clean report.
+
+- A MinHash Jaccard is an estimate, not the true value. With 128 permutations the
+  standard error is roughly one over the square root of 128, about 0.09, so a
+  near duplicate can sit just above or just below the threshold by chance. Raise
+  `--num-perm` to tighten the estimate at a linear cost in time.
+- Normalisation choices change the answer. A match reported with all steps on may
+  vanish with punctuation removal off. The report prints the active steps so the
+  setting is never hidden, but there is no single correct setting.
+- Semantic duplication is not detected at all. Two records that say the same thing
+  in different words share no shingles and produce no finding. EvalLeak measures
+  textual overlap, not meaning. A paraphrase leak is invisible to it.
+- Containment uses a length guard, so a genuinely short evaluation item can slip
+  under `min_length` and go unreported. Lower the guard only if you accept more
+  coincidental matches.
+- The comparison is pairwise and quadratic in the number of records per split
+  pair. It is built for split manifests of manageable size, not for deduplicating
+  a corpus of millions of records.
+
+## Roadmap
+
+No dates. In rough priority order:
+
+- A blocking mode that shards records to reduce the quadratic pair count.
+- A JSON output mode alongside the line-oriented text, for machine consumers.
+- Token shingling as an option next to character shingling.
+- A diff subcommand that compares two report files directly.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
+
+<p align="right">
+  <img src="docs/assets/logo.svg" width="200"
+       alt="EvalLeak wordmark with eval in slate and leak in amber, split at the
+       morpheme boundary above a baseline rule">
+</p>
+
+## Installation
+
+EvalLeak is a single-package install with zero dependencies:
+
+```bash
+pip install .
+```
+
+Python 3.11+ recommended; the scanner only uses the standard library.
+
+## Quick start
+
+```bash
+# check one manifest pair for overlap
+evalleak check train.manifest validation.manifest
+
+# full report across every split at once
+evalleak report train.manifest validation.manifest test.manifest
+```
+
+Exit code is non-zero when the containment rate exceeds the configured
+threshold, so the command drops straight into CI.
+
+## How splitting works
+
+Every record is reduced to a canonical form first: whitespace is normalised,
+line endings are folded, and text is shingled into overlapping n-grams. Two
+records are considered overlapping when their shingle Jaccard similarity
+crosses the configured threshold - exact-duplicate detection falls out of
+that naturally at threshold 1.0.
+
+Near-duplicate handling is deliberately conservative: paraphrases that share
+structure but not shingles are NOT flagged. The tool prefers a low false
+positive rate over catching clever rewrites; if you need that, raise the
+shingle size and accept the noise.
+
+## Interpreting the report
+
+- **containment** - fraction of the eval split covered by train. Above ~2%
+  your headline numbers are optimistic.
+- **overlap pairs** - the concrete (train_id, eval_id) matches, sorted by
+  similarity, with the shared shingle count attached.
+- **per-source rollup** - overlap grouped by the source field, which usually
+  names the crawler or dataset that caused the leak.
+
+## FAQ
+
+**Does it handle JSONL and plain text manifests?**
+Both. Records are line-delimited; any field can be selected as the text body
+via the --text-field flag.
+
+**Why not embeddings?**
+Deterministic shingles keep the scan reproducible and dependency-free. An
+embedding pass would make the tool slower, add a model download, and make
+two runs of the same tree disagree.
+
+**CI usage?**
+valleak check with --max-containment 2.0 fails the job on contamination
+above 2 percent and prints the offending pairs.
+# draft note 2
