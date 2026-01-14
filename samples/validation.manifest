@@ -5,3 +5,10 @@ split: validation
 id: v1
 text: THE MITOCHONDRIA IS THE POWERHOUSE OF THE CELL, AND IT SUPPLIES CHEMICAL ENERGY!!!
 
+id: v2
+text: Enzymes lower the activation energy of a reaction without being consumed by it.
+
+id: v3
+text: The Pythagorean theorem relates the squares of the sides of a right triangle.
+
+# draft note 7
