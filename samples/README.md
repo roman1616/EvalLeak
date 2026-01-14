@@ -25,3 +25,16 @@ Each record body is a short, factual sentence written for this repository.
 - Intra-split duplicate: `train/t3` and `train/t6` are the same sentence about
   binary search, inside the same split, which inflates the apparent train size.
 
+## Reproducing the numbers
+
+Run from the project root with the package on the path:
+
+```
+set PYTHONPATH=src
+python -m evalleak report samples\train.manifest samples\validation.manifest samples\test.manifest
+```
+
+The report prints one exact, one near, one containment, and one intra-split
+finding, and a total of eight distinct contaminated records.
+
+# draft note 4
