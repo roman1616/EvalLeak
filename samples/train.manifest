@@ -11,3 +11,13 @@ text: Photosynthesis converts light energy into chemical energy stored in glucos
 id: t3
 text: A binary search halves the search interval each step, giving logarithmic time.
 
+id: t4
+text: The capital of France is Paris, which sits on the river Seine in the north.
+
+id: t5
+text: Water boils at one hundred degrees Celsius at standard atmospheric pressure. This paragraph continues with extra context so the training record is strictly longer than the evaluation item embedded inside it.
+
+id: t6
+text: A binary search halves the search interval each step, giving logarithmic time.
+
+# draft note 6
