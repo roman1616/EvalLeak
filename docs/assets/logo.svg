@@ -16,3 +16,11 @@
      font-size="40" font-weight="700">
     <text x="20" y="56" fill="#1f2933">eval</text>
     <text x="112" y="56" fill="#b45309">leak</text>
+  </g>
+  <!-- The split line: clean side solid slate, leak side dashed amber. -->
+  <line x1="20" y1="70" x2="110" y2="70" stroke="#1f2933" stroke-width="1.5"/>
+  <line x1="112" y1="70" x2="204" y2="70" stroke="#b45309" stroke-width="1.5"
+        stroke-dasharray="6 4"/>
+</svg>
+
+# draft note 8
