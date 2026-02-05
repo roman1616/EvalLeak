@@ -319,4 +319,4 @@ def _compute_pair_rates(
                 )
             )
     rates.sort(key=lambda r: (r.source, r.target))
-# review note
+    return rates
