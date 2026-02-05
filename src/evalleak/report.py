@@ -87,3 +87,24 @@ def render_counts(report: OverlapReport) -> list[str]:
     return lines
 
 
+def render_report(report: OverlapReport) -> list[str]:
+    """Render the full report as a list of output lines."""
+    lines: list[str] = []
+    lines.append("evalleak contamination report")
+    lines.append(f"normalisation: {report.config.describe()}")
+    lines.append("")
+    lines.extend(render_counts(report))
+    lines.append("")
+    lines.extend(render_exact(report))
+    lines.append("")
+    lines.extend(render_near(report))
+    lines.append("")
+    lines.extend(render_containment(report))
+    lines.append("")
+    lines.extend(render_intra(report))
+    lines.append("")
+    lines.extend(render_rates(report))
+    lines.append("")
+    total = report.total_contaminated()
+    lines.append(f"total contaminated records: {total}")
+    return lines
