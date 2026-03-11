@@ -21,4 +21,4 @@ Initial release.
   case.
 - A split overlap data graphic and a wordmark logo.
 
-# draft note 10
+# draft note 19
