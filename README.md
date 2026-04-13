@@ -482,4 +482,4 @@ two runs of the same tree disagree.
 **CI usage?**
 valleak check with --max-containment 2.0 fails the job on contamination
 above 2 percent and prints the offending pairs.
-# draft note 38
+# draft note 47
