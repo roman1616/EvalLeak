@@ -26,4 +26,4 @@ where = ["src"]
 [tool.setuptools.package-dir]
 "" = "src"
 
-# draft note 39
+# draft note 48
