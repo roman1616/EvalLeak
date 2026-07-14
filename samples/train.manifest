@@ -19,5 +19,3 @@ text: Water boils at one hundred degrees Celsius at standard atmospheric pressur
 
 id: t6
 text: A binary search halves the search interval each step, giving logarithmic time.
-
-# draft note 15
