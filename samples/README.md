@@ -36,5 +36,3 @@ python -m evalleak report samples\train.manifest samples\validation.manifest sam
 
 The report prints one exact, one near, one containment, and one intra-split
 finding, and a total of eight distinct contaminated records.
-
-# draft note 13
