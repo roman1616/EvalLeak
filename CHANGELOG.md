@@ -20,5 +20,3 @@ Initial release.
 - Sample fixtures for one exact, one near, one containment, and one intra-split
   case.
 - A split overlap data graphic and a wordmark logo.
-
-# draft note 28
